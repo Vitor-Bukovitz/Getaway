@@ -23,7 +23,6 @@ func _unpause() -> void:
 
 @rpc("authority", "call_local", "reliable")
 func _all_players_ready() -> void:
-	push_warning("all player ready: " + str(Network.local_player_id) + " !")
 	_unpause()
 	if multiplayer.is_server():
 		_spawn_player()
