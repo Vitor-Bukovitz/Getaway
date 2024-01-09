@@ -3,7 +3,7 @@
 [ext_resource type="Script" path="res://scenes/world/world.gd" id="1_kq11p"]
 [ext_resource type="MeshLibrary" uid="uid://buk8j8s3kqm2x" path="res://scenes/world/assets/city_mesh.tres" id="2_hwvnm"]
 [ext_resource type="Script" path="res://scenes/world/grid_map.gd" id="3_dgnim"]
-[ext_resource type="Texture2D" uid="uid://c6q1r2pi14xdh" path="res://scenes/world/assets/world_loading_screen.jpg" id="4_aup0b"]
+[ext_resource type="Texture2D" uid="uid://cpfut8uui2oha" path="res://scenes/world/assets/world_loading_screen.png" id="4_anekm"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_1kf1l"]
 sky_top_color = Color(0.584314, 0.745098, 0.94902, 1)
@@ -64,5 +64,5 @@ offset_top = -444.0
 offset_bottom = 396.0
 grow_horizontal = 2
 grow_vertical = 2
-texture = ExtResource("4_aup0b")
+texture = ExtResource("4_anekm")
 stretch_mode = 5

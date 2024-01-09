@@ -35,6 +35,12 @@ func _make_empty_map() -> void:
 			var building_rotation: int = possible_rotations[randi() % 4]
 			var building: int = _pick_building()
 			_place_cell.rpc(Vector3i(x, 0, z), building, building_rotation)
+	
+	# Add map border
+	for x: int in range(-1, WIDTH):
+		var building: int = _pick_building()
+		_place_cell.rpc(Vector3i(x, 0, -1), building, 0)
+		_place_cell.rpc(Vector3i(-1, 0, x), building, 16)
 
 func _pick_building() -> int:
 	var possible_buildings: Array[int] = [6, 7, 8, 9, 10, 11, 12, 13]
