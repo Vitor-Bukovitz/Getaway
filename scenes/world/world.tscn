@@ -1,0 +1,67 @@
+[gd_scene load_steps=8 format=3 uid="uid://krxkn0laesvs"]
+
+[ext_resource type="Script" path="res://scenes/world/world.gd" id="1_kq11p"]
+[ext_resource type="MeshLibrary" uid="uid://buk8j8s3kqm2x" path="res://scenes/world/assets/city_mesh.tres" id="2_hwvnm"]
+[ext_resource type="Script" path="res://scenes/world/grid_map.gd" id="3_dgnim"]
+[ext_resource type="Texture2D" uid="uid://c6q1r2pi14xdh" path="res://scenes/world/assets/world_loading_screen.jpg" id="4_aup0b"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_1kf1l"]
+sky_top_color = Color(0.584314, 0.745098, 0.94902, 1)
+sky_horizon_color = Color(0.759804, 0.817647, 0.886274, 1)
+ground_bottom_color = Color(0.454902, 0.52549, 0.596078, 1)
+ground_horizon_color = Color(0.759804, 0.817647, 0.886274, 1)
+
+[sub_resource type="Sky" id="Sky_5atk8"]
+sky_material = SubResource("ProceduralSkyMaterial_1kf1l")
+
+[sub_resource type="Environment" id="Environment_ufio5"]
+background_mode = 2
+sky = SubResource("Sky_5atk8")
+tonemap_mode = 2
+glow_enabled = true
+
+[node name="World" type="Node3D"]
+script = ExtResource("1_kq11p")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(-0.866025, -0.215256, 0.451293, 0, 0.902585, 0.430511, -0.5, 0.372834, -0.781662, 0, 0, 0)
+shadow_enabled = true
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_ufio5")
+
+[node name="GridMap" type="GridMap" parent="."]
+mesh_library = ExtResource("2_hwvnm")
+cell_size = Vector3(20, 1, 20)
+cell_scale = 10.0
+data = {
+"cells": PackedInt32Array(0, 0, 0, 0, 65535, 1441792, 65535, 65535, 1441792, 65535, 0, 1441792, 1, 0, 1441796, 1, 65535, 1441796, 0, 65534, 4, 65535, 65534, 4, 65534, 0, 1048580, 65534, 65535, 1048580, 0, 1, 655364, 65535, 1, 655364, 65534, 65534, 8, 1, 65534, 8, 1, 1, 655368, 65534, 1, 655368, 65533, 0, 1048587, 65533, 65535, 1048587, 65533, 1, 1048587, 65533, 65534, 1048587, 65533, 65533, 11, 65534, 65533, 11, 65535, 65533, 11, 0, 65533, 11, 1, 65533, 11, 2, 65533, 1441803, 2, 65534, 1441803, 2, 65535, 1441803, 2, 0, 1441803, 2, 1, 1441803, 2, 2, 655371, 1, 2, 655371, 0, 2, 655371, 65535, 2, 655371, 65534, 2, 655371, 65533, 2, 655371)
+}
+script = ExtResource("3_dgnim")
+metadata/_editor_floor_ = Vector3(0, 1, 0)
+
+[node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="."]
+spawn_path = NodePath("Players")
+
+[node name="Players" type="Node3D" parent="MultiplayerSpawner"]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 10, 11, 8)
+
+[node name="UI" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="TextureRect" type="TextureRect" parent="UI"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -444.0
+offset_bottom = 396.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("4_aup0b")
+stretch_mode = 5

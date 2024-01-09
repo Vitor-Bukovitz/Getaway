@@ -1,0 +1,10 @@
+extends Popup
+
+@onready var player_list  = $VBoxContainer/ItemList
+
+func _ready():
+	refresh_players()
+
+func refresh_players():
+	player_list.clear()
+

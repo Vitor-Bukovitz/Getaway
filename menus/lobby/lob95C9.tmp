@@ -1,0 +1,64 @@
+[gd_scene load_steps=4 format=3 uid="uid://ciwadge2vc8xo"]
+
+[ext_resource type="FontFile" uid="uid://k1rppfavwhw8" path="res://ui/arco.otf" id="1_85ve6"]
+
+[sub_resource type="FontVariation" id="FontVariation_o1byh"]
+base_font = ExtResource("1_85ve6")
+
+[sub_resource type="Theme" id="Theme_y887q"]
+default_font = SubResource("FontVariation_o1byh")
+default_font_size = 24
+
+[node name="Lobby" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = SubResource("Theme_y887q")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 1)
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 16.0
+offset_top = 16.0
+offset_right = -16.0
+offset_bottom = -16.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+text = "Lobby"
+horizontal_alignment = 1
+
+[node name="CenterContainer" type="CenterContainer" parent="VBoxContainer"]
+layout_mode = 2
+
+[node name="GridContainer" type="GridContainer" parent="VBoxContainer/CenterContainer"]
+layout_mode = 2
+columns = 2
+
+[node name="Label" type="Label" parent="VBoxContainer/CenterContainer/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+text = "Name"
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="LineEdit" type="LineEdit" parent="VBoxContainer/CenterContainer/GridContainer"]
+custom_minimum_size = Vector2(320, 0)
+layout_mode = 2
+alignment = 1

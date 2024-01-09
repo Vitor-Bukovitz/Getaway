@@ -1,0 +1,10 @@
+[gd_resource type="Theme" load_steps=3 format=3 uid="uid://b64ur4t0q0jgs"]
+
+[ext_resource type="FontFile" uid="uid://k1rppfavwhw8" path="res://ui/arco.otf" id="1_6vn00"]
+
+[sub_resource type="FontVariation" id="FontVariation_o1byh"]
+base_font = ExtResource("1_6vn00")
+
+[resource]
+default_font = SubResource("FontVariation_o1byh")
+default_font_size = 24
