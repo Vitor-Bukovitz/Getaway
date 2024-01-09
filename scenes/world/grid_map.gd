@@ -21,8 +21,6 @@ var cell_walls: Dictionary = {
 
 func _ready() -> void:
 	clear()
-
-func create_map() -> void:
 	if multiplayer.is_server():
 		randomize()
 		_make_empty_map()

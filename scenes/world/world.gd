@@ -5,8 +5,12 @@ extends Node3D
 @onready var ui: Control = $UI
 @onready var grid_map: WorldGridMap = $GridMap
 
-func _ready():
-	player_ready.rpc_id(1)
+func _enter_tree() -> void:
+	get_tree().paused = true
+
+func _ready() -> void:
+	if multiplayer.is_server():
+		_send_ready.rpc()
 
 func _spawn_player() -> void:
 	var new_player: Node = player_resource.instantiate()
@@ -17,33 +21,31 @@ func _unpause() -> void:
 	get_tree().paused = false
 	ui.visible = false
 
+@rpc("authority", "call_local", "reliable")
 func _all_players_ready() -> void:
+	push_warning("all player ready: " + str(Network.local_player_id) + " !")
 	_unpause()
 	if multiplayer.is_server():
 		_spawn_player()
-		grid_map.create_map()
 	else:
-		spawn_remote_player.rpc(str(Network.local_player_id))
+		_spawn_remote_player.rpc(str(Network.local_player_id))
 
 @rpc("any_peer", "call_remote", "reliable")
-func spawn_remote_player(id: String) -> void:
+func _spawn_remote_player(id: String) -> void:
 	if multiplayer.is_server():
 		var new_player: Node = player_resource.instantiate()
 		new_player.name = id
 		players.add_child(new_player)
 
 @rpc("any_peer", "call_local", "reliable")
-func player_ready() -> void:
+func _send_ready() -> void:
 	if multiplayer.is_server():
-		print("+1 ready!")
-		Network.ready_players += 1
-		print("total ready: " + str(Network.ready_players))
-		if Network.ready_players == Network.players.size():
-			print("starting game...")
-			all_players_ready.rpc()
+		_player_ready()
+	else:
+		_player_ready.rpc_id(1)
 
 @rpc("any_peer", "call_local", "reliable")
-func all_players_ready() -> void:
-	_all_players_ready.call_deferred()
-
-
+func _player_ready() -> void:
+	Network.ready_players += 1
+	if Network.ready_players == Network.players.size():
+		_all_players_ready.rpc()
