@@ -17,23 +17,22 @@ sky_material = SubResource("ProceduralSkyMaterial_1kf1l")
 [sub_resource type="Environment" id="Environment_ufio5"]
 background_mode = 2
 sky = SubResource("Sky_5atk8")
-tonemap_mode = 2
-glow_enabled = true
 
 [node name="World" type="Node3D"]
 script = ExtResource("1_kq11p")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
-transform = Transform3D(-0.866025, -0.215256, 0.451293, 0, 0.902585, 0.430511, -0.5, 0.372834, -0.781662, 0, 0, 0)
+transform = Transform3D(-0.866025, -0.215256, 0.451293, 0, 0.902585, 0.430512, -0.5, 0.372834, -0.781661, 0, 0, 0)
 shadow_enabled = true
+directional_shadow_mode = 0
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_ufio5")
 
 [node name="GridMap" type="GridMap" parent="."]
 mesh_library = ExtResource("2_hwvnm")
-cell_size = Vector3(20, 1, 20)
-cell_scale = 10.0
+cell_size = Vector3(10, 1, 10)
+cell_scale = 5.0
 data = {
 "cells": PackedInt32Array(0, 0, 0, 0, 65535, 1441792, 65535, 65535, 1441792, 65535, 0, 1441792, 1, 0, 1441796, 1, 65535, 1441796, 0, 65534, 4, 65535, 65534, 4, 65534, 0, 1048580, 65534, 65535, 1048580, 0, 1, 655364, 65535, 1, 655364, 65534, 65534, 8, 1, 65534, 8, 1, 1, 655368, 65534, 1, 655368, 65533, 0, 1048587, 65533, 65535, 1048587, 65533, 1, 1048587, 65533, 65534, 1048587, 65533, 65533, 11, 65534, 65533, 11, 65535, 65533, 11, 0, 65533, 11, 1, 65533, 11, 2, 65533, 1441803, 2, 65534, 1441803, 2, 65535, 1441803, 2, 0, 1441803, 2, 1, 1441803, 2, 2, 655371, 1, 2, 655371, 0, 2, 655371, 65535, 2, 655371, 65534, 2, 655371, 65533, 2, 655371)
 }
@@ -45,7 +44,7 @@ _spawnable_scenes = PackedStringArray("res://entities/player/player.tscn")
 spawn_path = NodePath("Players")
 
 [node name="Players" type="Node3D" parent="MultiplayerSpawner"]
-transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 10, 11, 8)
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 5, 6, 4)
 
 [node name="UI" type="Control" parent="."]
 layout_mode = 3

@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://bhiu1cinswagq"]
+[gd_scene load_steps=12 format=3 uid="uid://bhiu1cinswagq"]
 
 [ext_resource type="Script" path="res://entities/player/player.gd" id="1_f7f65"]
 [ext_resource type="Script" path="res://entities/player/player_camera.gd" id="2_6c8cd"]
@@ -28,11 +28,36 @@ properties/5/path = NodePath(".:position")
 properties/5/spawn = true
 properties/5/replication_mode = 1
 
+[sub_resource type="Curve" id="Curve_o3sy8"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.179211, 1), 0.0, 0.0, 0, 0, Vector2(0.724014, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 4
+
+[sub_resource type="CurveTexture" id="CurveTexture_n3arw"]
+curve = SubResource("Curve_o3sy8")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_7lgxt"]
+lifetime_randomness = 0.2
+direction = Vector3(0, 0, 0)
+initial_velocity_max = 1.0
+gravity = Vector3(0, 0, 0)
+scale_min = 0.2
+scale_curve = SubResource("CurveTexture_n3arw")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_qrur7"]
+transparency = 1
+albedo_color = Color(1, 1, 1, 0.247059)
+
+[sub_resource type="SphereMesh" id="SphereMesh_a8v3f"]
+material = SubResource("StandardMaterial3D_qrur7")
+radius = 0.25
+height = 0.5
+
 [node name="Player" type="VehicleBody3D"]
 center_of_mass_mode = 1
 center_of_mass = Vector3(0, -0.1, 0)
 script = ExtResource("1_f7f65")
-engine_force_value = 80.0
+steer_speed = 3.0
+engine_force_value = 100.0
 max_speed = 400.0
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
@@ -130,3 +155,12 @@ text = "100 Km/H"
 
 [node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
 replication_config = SubResource("SceneReplicationConfig_omogh")
+
+[node name="GPUParticles3D" type="GPUParticles3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.6, 0.5, 2.5)
+amount = 12
+lifetime = 1.2
+randomness = 0.5
+visibility_aabb = AABB(-1, -1, -1, 2, 2, 2)
+process_material = SubResource("ParticleProcessMaterial_7lgxt")
+draw_pass_1 = SubResource("SphereMesh_a8v3f")

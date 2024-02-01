@@ -11,6 +11,7 @@ const HEIGHT: int = 20
 const SPACING: int = 2
 
 var erase_fraction: float = 0.25
+var building_locations: Array[Vector3] = []
 
 var cell_walls: Dictionary = {
 	Vector3(0, 0, -SPACING): N,
@@ -25,15 +26,17 @@ func _ready() -> void:
 		randomize()
 		_make_empty_map()
 		_make_map()
+		_adjust_building_rotations()
 		_erase_walls()
 
 #region Map Creation
 func _make_empty_map() -> void:
-	for x: int in range(0, WIDTH):
-		for z: int in range(0, HEIGHT):
-			var possible_rotations: Array[int] = [0, 10, 16, 22]
+	var possible_rotations: Array[int] = [0, 10, 16, 22]
+	for x: int in range(0, WIDTH - 1):
+		for z: int in range(0, HEIGHT - 1):
 			var building_rotation: int = possible_rotations[randi() % 4]
 			var building: int = _pick_building()
+			building_locations.append(Vector3(x, 0, z))
 			_place_cell.rpc(Vector3i(x, 0, z), building, building_rotation)
 	
 	# Add map border
@@ -41,6 +44,8 @@ func _make_empty_map() -> void:
 		var building: int = _pick_building()
 		_place_cell.rpc(Vector3i(x, 0, -1), building, 0)
 		_place_cell.rpc(Vector3i(-1, 0, x), building, 16)
+		_place_cell.rpc(Vector3i(WIDTH - 1, 0, x), building, 22)
+		_place_cell.rpc(Vector3i(x, 0, WIDTH - 1), building, 10)
 
 func _pick_building() -> int:
 	var possible_buildings: Array[int] = [6, 7, 8, 9, 10, 11, 12, 13]
@@ -63,6 +68,7 @@ func _make_map() -> void:
 			
 			var next: Vector3 = neighbors[randi() % neighbors.size()]
 			if current == Vector3(0, 0, 0):
+				building_locations.erase(Vector3(0, 0, 0))
 				next = Vector3(0, 0, SPACING)
 			var direction: Vector3 = next - current
 			
@@ -75,8 +81,44 @@ func _make_map() -> void:
 			
 			current = next
 			unvisited.erase(current)
+			building_locations.erase(Vector3(current.x, 0, current.z))
 		elif stack:
 			current = stack.pop_back()
+
+func _adjust_building_rotations() -> void:
+	for location: Vector3 in building_locations:
+		var road_direction: Vector3 = _find_nearest_road_direction(location)
+		if road_direction != Vector3.ZERO:
+			var new_rotation: int = _calculate_rotation_towards_road(road_direction)
+			var item: int = get_cell_item(location)
+			_place_cell.rpc(location, item, new_rotation)
+
+func _find_nearest_road_direction(building_location: Vector3) -> Vector3:
+	# Define the search directions (N, W, S, E)
+	var directions: Array = [Vector3(0, 0, -1), Vector3(-1, 0, 0), Vector3(0, 0, 1), Vector3(1, 0, 0)]
+	
+	for direction: Vector3 in directions:
+		var neighbor_location: Vector3 = building_location + direction
+		if _is_road(neighbor_location):
+			return direction
+	
+	return Vector3.ZERO  # Return a default value if no road is found
+
+func _is_road(location: Vector3) -> bool:
+	var cell: int = get_cell_item(location)
+	# You need to define what cell item number represents a road
+	return cell <= 5  # Replace ROAD_CELL_TYPE with the actual value for roads
+
+func _calculate_rotation_towards_road(road_direction: Vector3) -> int:
+	if road_direction == Vector3(0, 0, -1):  # North
+		return 10  # Assuming 0 is the rotation facing north
+	elif road_direction == Vector3(1, 0, 0):  # East
+		return 16  # Adjust these values based on your rotation system
+	elif road_direction == Vector3(0, 0, 1):  # South
+		return 0
+	elif road_direction == Vector3(-1, 0, 0):  # West
+		return 22
+	return 10 # Default rotation if no road is found
 
 func _check_neighbors(cell: Vector3, unvisited: Array) -> Array[Vector3]:
 	var list: Array[Vector3] = []
@@ -98,6 +140,7 @@ func _fill_gaps(current_position: Vector3, direction: Vector3) -> void:
 		else:
 			tile_type = 0
 		if tile_type:
+			building_locations.erase(Vector3(current_position.x, 0, current_position.z))
 			_place_cell.rpc(current_position, _get_cell_item(tile_type), _get_cell_rotation(tile_type))
 #endregion
 
