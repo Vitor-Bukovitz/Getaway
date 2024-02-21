@@ -13,6 +13,8 @@ const SPACING: int = 2
 var erase_fraction: float = 0.25
 var building_locations: Array[Vector3] = []
 
+@onready var object_spawner: ObjectSpawner = $ObjectSpawner
+
 var cell_walls: Dictionary = {
 	Vector3(0, 0, -SPACING): N,
 	Vector3(SPACING, 0, 0): E,
@@ -28,6 +30,7 @@ func _ready() -> void:
 		_make_map()
 		_adjust_building_rotations()
 		_erase_walls()
+		_record_tile_positions()
 
 #region Map Creation
 func _make_empty_map() -> void:
@@ -41,7 +44,8 @@ func _make_empty_map() -> void:
 	
 	# Add map border
 	for x: int in range(-1, WIDTH):
-		var building: int = _pick_building()
+		var possible_buildings: Array[int] = [10, 11, 12, 13]
+		var building: int = possible_buildings[randi() % possible_buildings.size() - 1]
 		_place_cell.rpc(Vector3i(x, 0, -1), building, 0)
 		_place_cell.rpc(Vector3i(-1, 0, x), building, 16)
 		_place_cell.rpc(Vector3i(WIDTH - 1, 0, x), building, 22)
@@ -72,8 +76,8 @@ func _make_map() -> void:
 				next = Vector3(0, 0, SPACING)
 			var direction: Vector3 = next - current
 			
-			var current_walls: int = _get_cell_item_from_position(current) - cell_walls[direction]
-			var next_walls: int = _get_cell_item_from_position(next) - cell_walls[-direction]
+			var current_walls: int = get_cell_item_from_position(current) - cell_walls[direction]
+			var next_walls: int = get_cell_item_from_position(next) - cell_walls[-direction]
 			
 			_place_cell.rpc(current, _get_cell_item(current_walls), _get_cell_rotation(current_walls))
 			_place_cell.rpc(next, _get_cell_item(next_walls), _get_cell_rotation(next_walls))
@@ -142,6 +146,18 @@ func _fill_gaps(current_position: Vector3, direction: Vector3) -> void:
 		if tile_type:
 			building_locations.erase(Vector3(current_position.x, 0, current_position.z))
 			_place_cell.rpc(current_position, _get_cell_item(tile_type), _get_cell_rotation(tile_type))
+
+## Record the position of all road tiles
+func _record_tile_positions() -> void:
+	var tiles: Array[Vector3] = []
+	for x: int in range(0, WIDTH):
+		for z: int in range(0, HEIGHT):
+			var current_cell: Vector3 = Vector3(x, 0, z)
+			var current_tile_type: int = get_cell_item_from_position(current_cell)
+			if current_tile_type < 15:
+				tiles.append(current_cell)
+	var map_size: Vector2 = Vector2(WIDTH, HEIGHT)
+	object_spawner.generate_props(tiles, map_size)
 #endregion
 
 #region Map polishes
@@ -150,21 +166,20 @@ func _erase_walls() -> void:
 		var x: int = randi_range(1, int(float(WIDTH) / SPACING) - SPACING) * SPACING
 		var z: int = randi_range(1, int(float(HEIGHT) / SPACING) - SPACING) * SPACING
 		var cell: Vector3 = Vector3(x, 0, z)
-		var current_cell: int = _get_cell_item_from_position(cell)
+		var current_cell: int = get_cell_item_from_position(cell)
 		var neighbor: Vector3 = cell_walls.keys()[randi() % cell_walls.size()]
 		
 		if current_cell & cell_walls[neighbor]:
 			var walls: int = current_cell - cell_walls[neighbor]
-			var neighbor_walls: int = _get_cell_item_from_position(cell + neighbor) - cell_walls[-neighbor]
+			var neighbor_walls: int = get_cell_item_from_position(cell + neighbor) - cell_walls[-neighbor]
 			
 			_place_cell.rpc(cell, _get_cell_item(walls), _get_cell_rotation(walls))
 			_place_cell.rpc(cell + neighbor, _get_cell_item(neighbor_walls), _get_cell_rotation(neighbor_walls))
 			_fill_gaps(cell, neighbor)
-			
 #endregion
 
 #region Cell Helpers
-func _get_cell_item_from_position(cell_position: Vector3) -> int:
+func get_cell_item_from_position(cell_position: Vector3) -> int:
 	var item: int = get_cell_item(cell_position)
 	var orientation: int = get_cell_item_orientation(cell_position)
 	match item:

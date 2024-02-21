@@ -6,7 +6,7 @@
 [ext_resource type="ArrayMesh" uid="uid://bl1jwyiu8bepx" path="res://entities/player/assets/car_sedan_wheel.tres" id="3_efubp"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_hp5on"]
-size = Vector3(2.2, 2, 5)
+size = Vector3(2.2, 2, 4.7)
 
 [sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_omogh"]
 properties/0/path = NodePath(".:engine_force")

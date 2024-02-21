@@ -1,0 +1,96 @@
+[gd_scene load_steps=5 format=3 uid="uid://dr3m4utppge8e"]
+
+[ext_resource type="ArrayMesh" uid="uid://ewk0cdv5i8to" path="res://entities/player/assets/car_sedan.tres" id="1_oj3p8"]
+[ext_resource type="ArrayMesh" uid="uid://bl1jwyiu8bepx" path="res://entities/player/assets/car_sedan_wheel.tres" id="2_ohvpo"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_hp5on"]
+size = Vector3(2.2, 2, 4.7)
+
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_m7y5u"]
+properties/0/path = NodePath("Car1:position")
+properties/0/spawn = true
+properties/0/replication_mode = 1
+properties/1/path = NodePath("Car1:rotation")
+properties/1/spawn = true
+properties/1/replication_mode = 1
+properties/2/path = NodePath("Car2:position")
+properties/2/spawn = true
+properties/2/replication_mode = 1
+properties/3/path = NodePath("Car2:rotation")
+properties/3/spawn = true
+properties/3/replication_mode = 1
+
+[node name="ParkedCars" type="Node3D"]
+
+[node name="Car1" type="RigidBody3D" parent="."]
+transform = Transform3D(1.19249e-08, 0, -1, 0, 1, 0, 1, 0, 1.19249e-08, -2.5, 0, -4)
+mass = 0.01
+center_of_mass_mode = 1
+center_of_mass = Vector3(0, -0.1, 0)
+sleeping = true
+
+[node name="CarCollision" type="CollisionShape3D" parent="Car1"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.2, 0.05)
+shape = SubResource("BoxShape3D_hp5on")
+
+[node name="Car" type="MeshInstance3D" parent="Car1"]
+transform = Transform3D(-5, 0, -4.37114e-07, 0, 5, 0, 4.37114e-07, 0, -5, 0, 0.5, 0)
+mesh = ExtResource("1_oj3p8")
+
+[node name="FrontLeftWheel" type="MeshInstance3D" parent="Car1"]
+transform = Transform3D(-5, 7.54979e-07, -3.30012e-14, 0, -2.18557e-07, -5, -7.54979e-07, -5, 2.18557e-07, -0.8, 0.5, -1.25)
+mesh = ExtResource("2_ohvpo")
+skeleton = NodePath("")
+
+[node name="BackLeftWheel" type="MeshInstance3D" parent="Car1"]
+transform = Transform3D(-5, 4.37114e-07, -1.91069e-14, -7.7647e-22, -2.18557e-07, -5, -4.37114e-07, -5, 2.18557e-07, -0.8, 0.5, 1.25)
+mesh = ExtResource("2_ohvpo")
+skeleton = NodePath("")
+
+[node name="FrontRightWheel" type="MeshInstance3D" parent="Car1"]
+transform = Transform3D(5, 0, 0, 0, -2.18557e-07, -5, 0, 5, -2.18557e-07, 0.8, 0.5, -1.25)
+mesh = ExtResource("2_ohvpo")
+skeleton = NodePath("")
+
+[node name="BackRightWheel" type="MeshInstance3D" parent="Car1"]
+transform = Transform3D(5, 0, 0, 0, -2.18557e-07, -5, 0, 5, -2.18557e-07, 0.8, 0.5, 1.25)
+mesh = ExtResource("2_ohvpo")
+skeleton = NodePath("")
+
+[node name="Car2" type="RigidBody3D" parent="."]
+transform = Transform3D(1.19249e-08, 0, -1, 0, 1, 0, 1, 0, 1.19249e-08, 2.5, 0, -4)
+mass = 0.01
+center_of_mass_mode = 1
+center_of_mass = Vector3(0, -0.1, 0)
+sleeping = true
+
+[node name="CarCollision" type="CollisionShape3D" parent="Car2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.2, 0.05)
+shape = SubResource("BoxShape3D_hp5on")
+
+[node name="Car" type="MeshInstance3D" parent="Car2"]
+transform = Transform3D(-5, 0, -4.37114e-07, 0, 5, 0, 4.37114e-07, 0, -5, 0, 0.5, 0)
+mesh = ExtResource("1_oj3p8")
+
+[node name="FrontLeftWheel" type="MeshInstance3D" parent="Car2"]
+transform = Transform3D(-5, 7.54979e-07, -3.30012e-14, 0, -2.18557e-07, -5, -7.54979e-07, -5, 2.18557e-07, -0.8, 0.5, -1.25)
+mesh = ExtResource("2_ohvpo")
+skeleton = NodePath("")
+
+[node name="BackLeftWheel" type="MeshInstance3D" parent="Car2"]
+transform = Transform3D(-5, 4.37114e-07, -1.91069e-14, -7.7647e-22, -2.18557e-07, -5, -4.37114e-07, -5, 2.18557e-07, -0.8, 0.5, 1.25)
+mesh = ExtResource("2_ohvpo")
+skeleton = NodePath("")
+
+[node name="FrontRightWheel" type="MeshInstance3D" parent="Car2"]
+transform = Transform3D(5, 0, 0, 0, -2.18557e-07, -5, 0, 5, -2.18557e-07, 0.8, 0.5, -1.25)
+mesh = ExtResource("2_ohvpo")
+skeleton = NodePath("")
+
+[node name="BackRightWheel" type="MeshInstance3D" parent="Car2"]
+transform = Transform3D(5, 0, 0, 0, -2.18557e-07, -5, 0, 5, -2.18557e-07, 0.8, 0.5, 1.25)
+mesh = ExtResource("2_ohvpo")
+skeleton = NodePath("")
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
+replication_config = SubResource("SceneReplicationConfig_m7y5u")
