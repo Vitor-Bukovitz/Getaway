@@ -6,8 +6,8 @@ const N: int = 1
 const E: int = 2
 const S: int = 4
 const W: int = 8
-const WIDTH: int = 20
-const HEIGHT: int = 20
+const WIDTH: int = 40
+const HEIGHT: int = 40
 const SPACING: int = 2
 
 var erase_fraction: float = 0.25

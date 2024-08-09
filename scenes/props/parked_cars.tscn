@@ -24,7 +24,7 @@ properties/3/replication_mode = 1
 
 [node name="Car1" type="RigidBody3D" parent="."]
 transform = Transform3D(1.19249e-08, 0, -1, 0, 1, 0, 1, 0, 1.19249e-08, -2.5, 0, -4)
-mass = 0.01
+mass = 100.0
 center_of_mass_mode = 1
 center_of_mass = Vector3(0, -0.1, 0)
 sleeping = true
@@ -59,7 +59,7 @@ skeleton = NodePath("")
 
 [node name="Car2" type="RigidBody3D" parent="."]
 transform = Transform3D(1.19249e-08, 0, -1, 0, 1, 0, 1, 0, 1.19249e-08, 2.5, 0, -4)
-mass = 0.01
+mass = 100.0
 center_of_mass_mode = 1
 center_of_mass = Vector3(0, -0.1, 0)
 sleeping = true

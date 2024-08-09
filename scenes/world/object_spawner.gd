@@ -19,6 +19,7 @@ func generate_props(tile_list: Array[Vector3], size: Vector2) -> void:
 
 func _random_tiles(tile_count: int) -> Array[Vector3]:
 	var tile_list: Array[Vector3] = tiles
+	tile_list.pop_front()
 	var selected_tiles: Array[Vector3] = tile_list
 	tile_list.shuffle()
 	for i: int in range(tile_count):

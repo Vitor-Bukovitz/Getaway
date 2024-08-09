@@ -4,15 +4,16 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://dj0aojbm5d8d8"
 path.s3tc="res://.godot/imported/citybits_texture.png-a80b4846460339ea58e5f01d5aed511c.s3tc.ctex"
+path.etc2="res://.godot/imported/citybits_texture.png-a80b4846460339ea58e5f01d5aed511c.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 
 [deps]
 
 source_file="res://scenes/world/assets/road/citybits_texture.png"
-dest_files=["res://.godot/imported/citybits_texture.png-a80b4846460339ea58e5f01d5aed511c.s3tc.ctex"]
+dest_files=["res://.godot/imported/citybits_texture.png-a80b4846460339ea58e5f01d5aed511c.s3tc.ctex", "res://.godot/imported/citybits_texture.png-a80b4846460339ea58e5f01d5aed511c.etc2.ctex"]
 
 [params]
 
