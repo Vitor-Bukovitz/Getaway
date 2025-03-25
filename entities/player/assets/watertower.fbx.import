@@ -3,18 +3,18 @@
 importer="scene"
 importer_version=1
 type="PackedScene"
-uid="uid://cwj8qju2ivita"
-path="res://.godot/imported/road_corner_curved.gltf-36cc7734318164a4ee515fdc60ebbb6a.scn"
+uid="uid://uteulw8fcxq8"
+path="res://.godot/imported/watertower.fbx-7221849ecd6721a0e517ee8968943c9f.scn"
 
 [deps]
 
-source_file="res://scenes/world/assets/road/road_corner_curved.gltf"
-dest_files=["res://.godot/imported/road_corner_curved.gltf-36cc7734318164a4ee515fdc60ebbb6a.scn"]
+source_file="res://entities/player/assets/watertower.fbx"
+dest_files=["res://.godot/imported/watertower.fbx-7221849ecd6721a0e517ee8968943c9f.scn"]
 
 [params]
 
-nodes/root_type="Node3D"
-nodes/root_name="Scene Root"
+nodes/root_type=""
+nodes/root_name=""
 nodes/apply_root_scale=true
 nodes/root_scale=1.0
 nodes/import_as_skeleton_bones=false
@@ -28,10 +28,11 @@ meshes/force_disable_compression=false
 skins/use_named_skins=true
 animation/import=true
 animation/fps=30
-animation/trimming=false
+animation/trimming=true
 animation/remove_immutable_tracks=true
 animation/import_rest_as_RESET=false
 import_script/path=""
 _subresources={}
-gltf/naming_version=0
-gltf/embedded_image_handling=1
+fbx/importer=0
+fbx/allow_geometry_helper_nodes=false
+fbx/embedded_image_handling=1

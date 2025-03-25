@@ -58,6 +58,3 @@ func _lookup_rotation(tile_item: int) -> Array[int]:
 		8, 9, 10, 11, 12, 13, 14:
 			rotations.append(270)
 	return rotations
-
-
-

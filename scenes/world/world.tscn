@@ -1,8 +1,8 @@
 [gd_scene load_steps=9 format=3 uid="uid://krxkn0laesvs"]
 
-[ext_resource type="Script" path="res://scenes/world/world.gd" id="1_kq11p"]
+[ext_resource type="Script" uid="uid://cshfja7r6kd6c" path="res://scenes/world/world.gd" id="1_kq11p"]
 [ext_resource type="MeshLibrary" uid="uid://buk8j8s3kqm2x" path="res://scenes/world/assets/city_mesh.tres" id="2_hwvnm"]
-[ext_resource type="Script" path="res://scenes/world/grid_map.gd" id="3_dgnim"]
+[ext_resource type="Script" uid="uid://bayvdttioidr2" path="res://scenes/world/grid_map.gd" id="3_dgnim"]
 [ext_resource type="Texture2D" uid="uid://cpfut8uui2oha" path="res://scenes/world/assets/world_loading_screen.png" id="4_anekm"]
 [ext_resource type="PackedScene" uid="uid://b3o1o4mf2w677" path="res://scenes/world/object_spawner.tscn" id="4_fp4ck"]
 
@@ -44,7 +44,7 @@ metadata/_editor_floor_ = Vector3(0, 0, 0)
 gridmap = NodePath("..")
 
 [node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="."]
-_spawnable_scenes = PackedStringArray("res://entities/player/player.tscn")
+_spawnable_scenes = PackedStringArray("uid://bhiu1cinswagq")
 spawn_path = NodePath("Players")
 
 [node name="Players" type="Node3D" parent="MultiplayerSpawner"]

@@ -21,4 +21,3 @@ func _player_connected() -> void:
 
 func _on_start_button_pressed() -> void:
 	Network.load_scene.rpc(world_scene_path)
-

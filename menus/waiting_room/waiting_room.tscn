@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://3esd5r5e578n"]
 
 [ext_resource type="Theme" uid="uid://b64ur4t0q0jgs" path="res://ui/theme_default/default_theme.tres" id="1_hs708"]
-[ext_resource type="Script" path="res://menus/waiting_room/waiting_room.gd" id="2_engba"]
+[ext_resource type="Script" uid="uid://du1m1b6vp10yt" path="res://menus/waiting_room/waiting_room.gd" id="2_engba"]
 
 [node name="WaitingRoom" type="Control"]
 layout_mode = 3

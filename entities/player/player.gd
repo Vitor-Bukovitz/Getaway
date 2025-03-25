@@ -80,4 +80,3 @@ func _apply_brakes() -> void:
 	else:
 		wheel_back_left.wheel_friction_slip = 3
 		wheel_back_right.wheel_friction_slip = 3
-

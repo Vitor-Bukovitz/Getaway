@@ -1,7 +1,7 @@
 [gd_scene load_steps=12 format=3 uid="uid://bhiu1cinswagq"]
 
-[ext_resource type="Script" path="res://entities/player/player.gd" id="1_f7f65"]
-[ext_resource type="Script" path="res://entities/player/player_camera.gd" id="2_6c8cd"]
+[ext_resource type="Script" uid="uid://bks4f37v76q51" path="res://entities/player/player.gd" id="1_f7f65"]
+[ext_resource type="Script" uid="uid://b2hvsqn0nf088" path="res://entities/player/player_camera.gd" id="2_6c8cd"]
 [ext_resource type="ArrayMesh" uid="uid://ewk0cdv5i8to" path="res://entities/player/assets/car_sedan.tres" id="2_nwf6s"]
 [ext_resource type="ArrayMesh" uid="uid://bl1jwyiu8bepx" path="res://entities/player/assets/car_sedan_wheel.tres" id="3_efubp"]
 
